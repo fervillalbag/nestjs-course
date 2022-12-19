@@ -1,6 +1,6 @@
 import "./style.css";
 import { name, age } from "./intro/01-types";
-import { charmander } from "./intro/03-classes";
+import { charmander } from "./intro/04-async";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
@@ -9,4 +9,4 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   </div>
 `;
 
-console.log(charmander);
+// console.log(charmander);
