@@ -1,4 +1,8 @@
 import axios from "axios";
+import {
+  PokeAPIResponse,
+  Move,
+} from "../interfaces/poikeapi-response-interfaces";
 
 export class Pokemon {
   get imageURL(): string {
@@ -15,11 +19,10 @@ export class Pokemon {
     console.log(`${this.name} ${this.name}`);
   }
 
-  async getMoves() {
-    const response = await axios.get(
-      "https://pokeapi.co/api/v2/pokemon/4"
-    );
-    return response.data.moves;
+  async getMoves(): Promise<Move[]> {
+    const URL_ENDPOINT = "https://pokeapi.co/api/v2/pokemon/4";
+    const { data } = await axios.get<PokeAPIResponse>(URL_ENDPOINT);
+    return data.moves;
   }
 }
 
