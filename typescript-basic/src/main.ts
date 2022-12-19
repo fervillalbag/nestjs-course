@@ -1,6 +1,6 @@
 import "./style.css";
 import { name, age } from "./intro/01-types";
-import { charmander } from "./intro/04-async";
+import { charmander } from "./intro/05-injection";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
