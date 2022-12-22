@@ -34,15 +34,11 @@ export class CarsController {
 
   @Patch(':id')
   updateCar(@Param('id', ParseUUIDPipe) id: string, @Body() dto: UpdateCarDTO) {
-    return { id, dto };
+    return this.carsService.updateCar(id, dto);
   }
 
   @Delete(':id')
-  deleteCar(@Param('id') id: string) {
-    console.log({ id });
-    return {
-      method: 'delete',
-      id,
-    };
+  deleteCar(@Param('id', ParseUUIDPipe) id: string) {
+    return this.carsService.deleteCar(id);
   }
 }
