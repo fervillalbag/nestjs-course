@@ -1,15 +1,15 @@
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsOptional } from 'class-validator';
 
 export class UpdateCarDTO {
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   readonly id?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString({ message: 'The input sends is not valid' })
   readonly brand?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   readonly name?: string;
 }
