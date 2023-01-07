@@ -1,4 +1,10 @@
-import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  ObjectID,
+  ObjectIdColumn,
+} from 'typeorm';
 
 @Entity()
 export class Product {
@@ -8,8 +14,8 @@ export class Product {
   @Column({ type: 'text', unique: true })
   title: string;
 
-  @Column({ type: 'numeric', default: 0 })
-  price: number;
+  @Column({ type: 'float', default: 0 })
+  price = 0;
 
   @Column({ type: 'text', nullable: true })
   description: string;
@@ -18,7 +24,7 @@ export class Product {
   slug: string;
 
   @Column({ type: 'int', default: 0 })
-  stock: number;
+  stock = 0;
 
   @Column({ type: 'text', array: true })
   sizes: string[];
@@ -26,6 +32,15 @@ export class Product {
   @Column({ type: 'text' })
   gender: string;
 
-  // tags
-  // images
+  @BeforeInsert()
+  checkSlug() {
+    if (!this.slug) {
+      this.slug = this.title;
+    }
+
+    this.slug = this.slug
+      .toLowerCase()
+      .replaceAll(' ', '-')
+      .replaceAll("'", '');
+  }
 }
