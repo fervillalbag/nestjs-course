@@ -1,6 +1,10 @@
 import { Repository } from 'typeorm';
-import { Injectable } from '@nestjs/common';
-import { InternalServerErrorException } from '@nestjs/common/exceptions';
+import {
+  Injectable,
+  Logger,
+  BadRequestException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { CreateProductDto } from './dto/create-product.dto';
@@ -9,6 +13,8 @@ import { Product } from './entities/product.entity';
 
 @Injectable()
 export class ProductsService {
+  private readonly logger = new Logger();
+
   constructor(
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
@@ -20,24 +26,32 @@ export class ProductsService {
       await this.productRepository.save(product);
       return product;
     } catch (error) {
-      console.log(error);
-      throw new InternalServerErrorException('Help!');
+      this.handleExceptions(error);
     }
   }
 
   findAll() {
-    return `This action returns all products`;
+    return this.productRepository.find();
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} product`;
   }
 
-  update(id: number, dto: UpdateProductDto) {
+  update(id: string, dto: UpdateProductDto) {
     return `This action updates a #${id} product ${dto}`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} product`;
+  }
+
+  private handleExceptions(error: any) {
+    console.log(error.code);
+    if (error.code === 11000)
+      throw new BadRequestException(`La llave title ya existe`);
+
+    this.logger.error(error);
+    throw new InternalServerErrorException('Help!');
   }
 }
