@@ -1,12 +1,12 @@
 import {
-  IsOptional,
-  IsString,
-  MinLength,
-  IsNumber,
-  IsPositive,
-  IsInt,
-  IsArray,
   IsIn,
+  IsArray,
+  IsPositive,
+  IsOptional,
+  IsNumber,
+  IsString,
+  IsInt,
+  MinLength,
 } from 'class-validator';
 
 export class CreateProductDto {

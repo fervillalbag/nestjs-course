@@ -1,46 +1,33 @@
-import {
-  BeforeInsert,
-  Column,
-  Entity,
-  ObjectID,
-  ObjectIdColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Product {
-  @ObjectIdColumn()
-  _id: ObjectID;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @Column({ type: 'text', unique: true })
+  @Column('text', { unique: true })
   title: string;
 
-  @Column({ type: 'float', default: 0 })
-  price = 0;
+  @Column('float', {
+    default: 0,
+  })
+  price: number;
 
   @Column({ type: 'text', nullable: true })
   description: string;
 
-  @Column({ type: 'text', unique: true })
+  @Column('text', { unique: true })
   slug: string;
 
-  @Column({ type: 'int', default: 0 })
-  stock = 0;
+  @Column('int', { default: 0 })
+  stock: number;
 
-  @Column({ type: 'text', array: true })
+  @Column('text', { array: true })
   sizes: string[];
 
-  @Column({ type: 'text' })
+  @Column('text')
   gender: string;
 
-  @BeforeInsert()
-  checkSlug() {
-    if (!this.slug) {
-      this.slug = this.title;
-    }
-
-    this.slug = this.slug
-      .toLowerCase()
-      .replaceAll(' ', '-')
-      .replaceAll("'", '');
-  }
+  // tags
+  // images
 }
