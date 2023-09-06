@@ -19,6 +19,11 @@ export class CreateProductDto {
   @IsOptional()
   price?: number;
 
+  @IsArray()
+  @IsString({ each: true })
+  @IsOptional()
+  tags: string[];
+
   @IsString()
   @IsOptional()
   description?: string;
