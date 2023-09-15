@@ -14,9 +14,9 @@ export class User {
   @Column('text')
   fullname: string;
 
-  @Column('boolean')
+  @Column('bool', { unique: true })
   isActive: boolean;
 
-  @Column('text', { array: true })
+  @Column('text', { array: true, default: ['user'] })
   roles: string[];
 }
