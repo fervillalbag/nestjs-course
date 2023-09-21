@@ -3,10 +3,12 @@ import {
   BeforeUpdate,
   Column,
   Entity,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ProductImage } from './image.entity';
+import { User } from '../../auth/entities/user.entity';
 
 @Entity({ name: 'products' })
 export class Product {
@@ -29,6 +31,9 @@ export class Product {
 
   @Column('int', { default: 0 })
   stock: number;
+
+  @ManyToOne(() => User, (user) => user.product, { eager: true })
+  user: User;
 
   @Column('text', { array: true })
   sizes: string[];
